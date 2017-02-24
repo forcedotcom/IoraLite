@@ -1,0 +1,108 @@
+<!--
+ * Copyright (c) 2017, Salesforce.com, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of Salesforce.com nor the names of its contributors may
+ * be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ -->
+
+<div id="wrapper">
+  <nav ioraHeader id="navigation" class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+  </nav>
+
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">Org Overview</h1>
+        <p class="lead">Assess and improve components in your Salesforce org</p>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="alert alert-info" role="alert">
+              <i class="fa fa-info-circle"></i> &nbsp;<b>{{noOfReports}}</b> reports and <b>{{noOfDashboards}}</b> dashboard definitions were collected and analyzed for this data set.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-lg-6">
+        <!-- /.panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <i class="glyphicon glyphicon-scale"></i> Design Assessment
+            <span style="text-align:center;float:right;font-size:12px;text-transform:none;"><i class="glyphicon glyphicon-hand-down"></i> Click on chart legend to toggle bars</span>
+          </div>
+          <div class="panel-body">
+            <!--<div id="reports-chart"></div> -->
+            <nvd3 options="options" data="designOverviewdata"></nvd3>
+
+            <p>The above chart shows, of the collected data set for this session, a count of the dashboards and reports that have optimal and suboptimal designs. An optimal report executes using a selective, indexed filter condition. An optimal dashboard
+              includes all optimal reports. You can tune slow-running optimal reports and dashboards that target large data sets by improving the selectivity of indexed filter conditions.</p>
+
+            <!--<a id="reportsLink" href="{{reportsPage}}" class="btn btn-default" style="margin-left:112.5px;">View Details</a>
+                         <a id="reportsLink" href="{{dashboardsPage}}" class="btn btn-default" style="margin-left:337.5px;">View Details</a> -->
+          </div>
+          <!-- /.panel-body -->
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <!-- /.panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <i class="glyphicon glyphicon-scale"></i> Scalability Assessment
+            <span style="text-align:center;float:right;font-size:12px;text-transform:none;"><i class="glyphicon glyphicon-hand-down"></i> Click on chart legend to toggle bars</span>
+          </div>
+          <div class="panel-body">
+            <!--<div id="dashboards-chart"></div>-->
+            <nvd3 options="options" data="scalabilityOverviewdata"></nvd3>
+            <p>
+              The above chart shows, of the collected data set for this session, a count of the dashboards and reports that target scalable and potentially unscalable objects. Generally speaking, reports (standalone or as a dashboard component) become less scalable
+              when the objects they target contain more records. You can tune slow-running reports and dashboards that target large data sets by improving the selectivity of indexed filter conditions or archiving historical data. </p>
+
+            <!--   <a id="reportsLink" href="{{reportsPage}}" class="btn btn-default" style="margin-left:112.5px;">View Details</a>
+                         <a id="reportsLink" href="{{dashboardsPage}}" class="btn btn-default" style="margin-left:337.5px;">View Details</a> -->
+          </div>
+          <!-- /.panel-body -->
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+  <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+<script src="bower_components/raphael/raphael.js"></script>
+<script src="bower_components/mocha/mocha.js"></script>
+<script src="bower_components/morris.js/morris.js"></script>

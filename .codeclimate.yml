@@ -1,0 +1,50 @@
+---
+engines:
+  csslint:
+    enabled: false
+  coffeelint:
+    enabled: true
+  duplication:
+    enabled: true
+    exclude_fingerprints:
+    - cddbc24e21e26274f530a0b91d8e77c7
+    - 3eda758d873badbe62a07e64dd0dd071
+    - 941c26590834380513907d922361046a
+    - 20c2af8501c43b94086a7a8fa50cec4d
+    - b9138767d11d15160d4bd5a0d89e8556
+    - ed76e22686e79ea1c7cf656f36434d54
+    - 568ccef4785098883fcc51359ce5978a
+    - 339c74609c14f8d9d8b1d4999b89e9b2
+    - b4ad83d9f2aae5baca82e53c59fd4ef2
+    - 5109eda412c989b8187f659c7403f447
+
+
+    config:
+      languages:
+      - ruby
+      - javascript
+      - python
+      - php
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.coffee"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
+  - "**.rb"
+exclude_paths:
+- node_modules/
+- "client/app/scripts/directives/lzstring/lzstring.js"
+- "client/app/scripts/directives/iora/datatables-merge.js"
+- "client/app/scripts/directives/iora/datatables-row-group.js"
+- "client/app/scripts/directives/iora/iora_ui_utility.js"
+- "server/models/ioraSchema.js"
+- "server/models/index.js"
+- "server/routes.js"

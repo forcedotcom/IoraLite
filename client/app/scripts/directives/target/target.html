@@ -1,0 +1,435 @@
+<!--
+ * Copyright (c) 2017, Salesforce.com, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of Salesforce.com nor the names of its contributors may
+ * be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ -->
+
+<div id="iora_page-wrapper_template">
+
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">{{targetType}}</h1>
+      <p class="lead">Assess and improve this {{targetType}}:
+        <span id="targetName"></span>
+      </p>
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+
+
+
+  <!-- /.row -->
+  <div class="row ">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+
+
+
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-pills">
+            <li id="nav-bar" class="{{dashboardClass}}" ng-show="isDashboardPage"><a href="#bar-chart" ng-click="$event.preventDefault();" data-toggle="tab" aria-expanded="false">Assessment</a>
+            </li>
+
+            <li id="nav-general" class="{{generalClass}}"><a href="#general-pills" ng-click="$event.preventDefault();" data-toggle="tab" aria-expanded="true">General</a>
+            </li>
+            <li id="nav-structure" class=""><a href="#structure-pills" ng-click="$event.preventDefault();" data-toggle="tab" aria-expanded="false">Structure</a>
+            </li>
+            <li id="nav-filters" class=""><a href="#filters-pills" ng-click="$event.preventDefault();" data-toggle="tab" aria-expanded="false">Filters</a>
+            </li>
+            <li id="nav-performance" class=""><a href="#performance-pills" ng-click="$event.preventDefault();" data-toggle="tab" aria-expanded="false">Performance</a>
+            </li>
+            <li id="nav-tuning" class=""><a href="#tuning-pills" ng-click="$event.preventDefault();" data-toggle="tab" aria-expanded="false">Tuning Advisor</a>
+            </li>
+
+            <li id="nav-dash-errors" class="" ng-show="hasDashErrors"><a href="#dash-errors" ng-click="$event.preventDefault();" data-toggle="tab" aria-expanded="false">Errors</a>
+            </li>
+
+
+          </ul>
+
+
+
+
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+
+            <div class="modal" tabindex="-1" role="dialog" ng-show="invalidSession" ng-style="divStyle">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title"><img src="images/iora_logo.png" alt="Iora Lite" height="50" width="50">
+                     Invalid Session</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>{{invalidSessionMsg}}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="loginButton" type="button" class="btn btn-primary" ng-click="go('/login');">Login <span class="glyphicon glyphicon-log-in"></span></button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+
+
+            <div class="modal" tabindex="-1" role="dialog" ng-show="searchErrors" ng-style="divStyle">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title"><img src="images/iora_logo.png" alt="Iora Lite" height="50" width="50">
+                     Could not fetch {{targetType}}</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>{{searchErrorMsgs}}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="homeButton" type="button" class="btn btn-primary" ng-click="go('/Iora_Org');"><i class="fa fa-home fa-fw"/>Iora Home</button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+
+
+
+            <div class="tab-pane fade {{generalDiv}}" id="general-pills">
+              <input type="hidden" id="objectName" value="" \>
+              <h4 class="page-header">General {{targetType}} Information</h4>
+
+
+
+              <table id="general" class="table table-striped table-bordered table-hover" style="width:100%">
+                <tbody>
+                  <tr id="tr-Design">
+                    <th>Design Status</th>
+                    <td id="td-Design"></td>
+                  </tr>
+                  <tr id="tr-Scalability">
+                    <th>Scalability Status</th>
+                    <td id="td-Scalability"></td>
+                  </tr>
+                  <tr id="tr-HealthScore">
+                    <th>Cost</th>
+                    <td id="td-HealthScore"></td>
+                  </tr>
+                  <tr id="tr-Id">
+                    <th>Id</th>
+                    <td id="td-Id"></td>
+                  </tr>
+                  <tr id="tr-Name">
+                    <th>Name</th>
+                    <td id="td-Name"></td>
+                  </tr>
+                  <tr id="tr-Description">
+                    <th>Description</th>
+                    <td id="td-Description"></td>
+                  </tr>
+                  <tr id="tr-Entity">
+                    <th id="th-Entity"> Report Type </th>
+                    <td id="td-Entity"></td>
+                  </tr>
+                  <tr id="tr-RunningUserId">
+                    <th>Running User</th>
+                    <td id="td-RunningUserId"></td>
+                  </tr>
+                  <tr id="tr-CreatedById">
+                    <th>Created By</th>
+                    <td id="td-CreatedById"></td>
+                  </tr>
+                  <tr id="tr-CreatedDate">
+                    <th>Created On</th>
+                    <td id="td-CreatedDate"></td>
+                  </tr>
+                  <tr id="tr-OwnerId">
+                    <th>Owned By</th>
+                    <td id="td-OwnerId"></td>
+                  </tr>
+                  <tr id="tr-LastModifiedById">
+                    <th>Last Modified By</th>
+                    <td id="td-LastModifiedById"></td>
+                  </tr>
+                  <tr id="tr-LastModifiedDate">
+                    <th>Last Modified On</th>
+                    <td id="td-LastModifiedDate"></td>
+                  </tr>
+
+                  <tr id="tr-LastUsedDate">
+                    <th>Last Used On</th>
+                    <td id="td-LastUsedDate"></td>
+                  </tr>
+
+                  <tr id="tr-FolderName">
+                    <th>Folder Name</th>
+                    <td id="td-FolderName"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="structure-pills">
+              <div id="div-Fields">
+                <h4 class="page-header">{{targetType}} Fields</h4>
+                <p>This {{targetType}} displays the following fields.</p>
+                <div class="table-responsive">
+                  <table id="fields" class="table table-striped table-bordered table-hover" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Type</th>
+                      </tr>
+                    </thead>
+
+                  </table>
+                </div>
+              </div>
+              <!-- div-Fields -->
+              <div id="div-Groups">
+                <h4 class="page-header">Report Groupings</h4>
+                <p>This report groups data as follows.</p>
+                <div class="table-responsive">
+                  <table id="groupingsAll" class="table table-striped table-bordered table-hover" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Field Name</th>
+                        <th>Granularity</th>
+                        <th>Sort Aggregate</th>
+                        <th>Sort Order</th>
+                      </tr>
+                    </thead>
+
+                  </table>
+                </div>
+              </div>
+              <!-- div-Groups -->
+              <div id="div-DashboardComponents">
+                <h4 class="page-header">{{targetType}} Components</h4>
+                <p>This {{targetType}} includes the following components.</p>
+                <div class="table-responsive">
+                  <table id="components" class="table table-striped table-bordered table-hover" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th> Source Name </th>
+                        <th> Source Type</th>
+                        <th> Dashboard Component Name</th>
+                        <th> Visualization </th>
+                      </tr>
+                    </thead>
+
+                  </table>
+                </div>
+              </div>
+              <!-- div-DashBoardComponents -->
+            </div>
+            <div class="tab-pane fade" id="filters-pills">
+              <h4 class="page-header">{{targetType}} Filters</h4>
+              <p>This {{targetType}} uses the following custom filter conditions.</p>
+              <div class="table-responsive">
+                <table id="filters" class="table table-striped table-bordered table-hover" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Filter Type</th>
+                      <th>Field</th>
+                      <th>Operator</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <h4 class="page-header">Filter Logic</h4>
+              <p>The numbered filter conditions above are combined as the following overall filter condition.</p>
+              <code id="targetBooleanFilter" class="iora_code"></code>
+            </div>
+            <div class="tab-pane fade" id="performance-pills">
+              <br>&nbsp;</br>
+              <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" ng-click="$event.preventDefault();" aria-expanded="false" class="collapsed">Performance Overview</a>
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true">
+                    <div id="performanceOverviewText" class="panel-body">
+                      No overview available.
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" ng-click="$event.preventDefault();" class="collapsed" aria-expanded="false">Performance Details</a>
+                    </h4>
+                  </div>
+                  <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="panel-body">
+
+                      <h4 class="page-header">Execution Plans</h4>
+                      <p>This {{targetType}} execution considered the following query execution plans. The first plan is the chosen plan.</p>
+                      <div class="table-responsive">
+                        <table id="plans" class="table table-striped table-bordered table-hover" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Leading Operation Type</th>
+                              <th>Object Type</th>
+                              <th>Fields</th>
+                              <th>Cardinality</th>
+                              <th>Object Size (Records)</th>
+                              <th>Relative Cost</th>
+                            </tr>
+                          </thead>
+
+                        </table>
+                      </div>
+                      <h4 class="page-header">Optimizer Notes</h4>
+                      <p>The optimizer made the following observations about the chosen query plan.</p>
+                      <div class="table-responsive">
+                        <table id="notes" class="table table-striped table-bordered table-hover" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th>Object</th>
+                              <th>Fields</th>
+                              <th>Notes</th>
+                            </tr>
+                          </thead>
+
+                        </table>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="tab-pane fade" id="tuning-pills">
+              <div id="rpt-perf" ng-show="isReportPage">
+                <h4 class="page-header">Tuning Recommendations</h4>
+                <p>Here are some tuning recommendations for this {{targetType}}.</p>
+                <div class="table-responsive">
+                  <table id="recommendations" class="table table-striped table-bordered table-hover" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>Recommendation</th>
+                        <th>Reason</th>
+                      </tr>
+                    </thead>
+
+                  </table>
+
+
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="dash-errors" ng-show="hasDashErrors">
+              <div id="dash-cmp-errors">
+                <h4 class="page-header">Dashboard Errors</h4>
+                <p>Here are the errors encountered for the components associated with this dashboard.</p>
+                <div class="table-responsive">
+                  <table id="dash-errors-table" class="table table-striped table-bordered table-hover" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>Component ID</th>
+                        <th>Component Name</th>
+                        <th>Error Code</th>
+                        <th>Error Message</th>
+                        <th>Error Severity</th>
+                      </tr>
+                    </thead>
+
+                  </table>
+
+
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade {{dashboardDiv}}" id="bar-chart" style="width:1000px;" ng-show="isDashboardPage">
+              <nvd3 options="options" data="data"></nvd3>
+              <div style="float:left" class="label label-warning"> <i class="glyphicon glyphicon-arrow-left"></i>Worse </div>
+              <div style="float:right" class="label label-success" > Better <i class="glyphicon glyphicon-arrow-right"></i></div>
+               <!--<div class="row equal">
+                <div class="col-md-6 equal">
+                     <div class="panel panel-default">
+                      <div class="panel-body">
+                  <nvd3 options="options" data="data"></nvd3>
+                  <p>Above chart represents <i>upto</i> a maximum of
+                    <strong>{{chartFilter.dataSize.text}}</strong> potential {{lowerCaseTargets}} identified by Iora Lite application that can be improved. Hover over the bar for details and click them to navigate.</p>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-6 equal">
+                 <div class="panel panel-default">
+                  <div class="panel-body">
+                  <nvd3 options="options" data="data"></nvd3>
+                  <p>Above chart represents  .</p>
+                </div>
+                </div>
+              </div>
+
+            </div> -->
+
+
+           </div>
+        </div>
+        <!-- /.panel-body -->
+      </div>
+      <!-- /.panel -->
+    </div>
+
+  </div>
+</div>
+<!-- /#page-wrapper -->
+
+<script type="text/javascript">
+
+
+$("#loginButton").click(function(){
+  $('.modal').modal('hide');
+  //$('.modal-backdrop').remove();
+});
+
+$("#homeButton").click(function(){
+  $('.modal').modal('hide');
+  //$('.modal-backdrop').remove();
+});
+</script>

@@ -1,0 +1,7 @@
+{
+  "name": "IoraLite Node.js Application",
+  "description": "A node.js application that provides operational business intelligence for salesforce reports and dashboards",
+  "repository": "https://github.com/forcedotcom/IoraLite",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["node", "express", "angular"]
+}

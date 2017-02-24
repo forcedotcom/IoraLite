@@ -1,0 +1,16 @@
+{
+  "ignore": [
+    "**/node_modules/**",
+    "**/**jquery.?(ui|effects)-*.*.?(*).?(cs|j)s",
+    "**/**jquery-*.*.?(*).?(cs|j)s",
+    "client/bower_components/**",
+    "client/app/scripts/directives/lzstring/lzstring.js",
+    "client/app/scripts/directives/iora/datatables-merge.js",
+    "client/app/scripts/directives/iora/datatables-row-group.js",
+    "client/app/scripts/directives/iora/iora_ui_utility.js",
+    "server/models/ioraSchema.js",
+    "server/models/index.js",
+    "server/routes.js"
+  ]
+
+}

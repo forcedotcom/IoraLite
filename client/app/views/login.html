@@ -1,0 +1,220 @@
+<!--
+ * Copyright (c) 2017, Salesforce.com, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of Salesforce.com nor the names of its contributors may
+ * be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ -->
+
+<form name="loginForm">
+  <div class="container">
+
+    <!-- login errors  -->
+     <div iorainvalidlogin></div>
+
+    <div class="jumbotron">
+      <h1>Iora Lite</h1>
+      <p class="legal">
+        <img src="images/iora.png" alt="Iora Lite" height="100" width="100">
+        <br> <span style="font-size:smaller;">Operational Business Intelligence for Salesforce Reports and Dashboards </span>
+      </p>
+
+      <p>
+        <div class="btn-group" id="authMethod" data-toggle="buttons">
+
+          <label class="btn btn-default active" ng-click="setAuthMethod('std');">
+            <input type="radio" name="options" id="option1" autocomplete="off" value="std" checked> Standard
+          </label>
+          <label class="btn btn-default" ng-click="setAuthMethod('oauth');">
+            <input type="radio" name="options" id="option2" autocomplete="off" value="oauth"> OAuth
+          </label>
+
+        </div>
+
+      </p>
+
+
+
+      <div id="standardAuth" style="display:inline;">
+        <p class="legal" id="userNameSection">
+
+          <div class="input-group input-group-lg" show-errors='{ showSuccess: true }'>
+            <span class="input-group-addon" id="@addon">
+              <span class="glyphicon glyphicon-user" /></span>
+            <input type="text" name="userName" id="userName" class="form-control" placeholder="Username" aria-describedby="@addon" ng-model="username" ng-required="!isOauth" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"></input>
+            <span class="input-group-addon help-inline" style="font-size:14px;font-style:italic;color:#a94442;" ng-if="loginForm.userName.$touched && loginForm.userName.$error.required">Username is required</span>
+            <span class="input-group-addon help-inline" style="font-size:14px;font-style:italic;color:#a94442;" ng-if="loginForm.userName.$touched && loginForm.userName.$error.pattern">Invalid username</span>
+
+          </div>
+
+        </p>
+        <p id="pwdSection">
+          <div class="input-group input-group-lg" show-errors='{ showSuccess: true }'>
+            <span class="input-group-addon" id="pwdAddon">
+              <span class="glyphicon glyphicon glyphicon-lock"></span>
+            </span>
+
+            <input id="password" name="password" type="password" class="form-control" placeholder="Password + Security token" aria-describedby="pwdAddon" ng-model="password" ng-required="!isOauth"></input>
+
+            <span class="input-group-addon help-inline" style="font-size:14px;font-style:italic;color:#a94442;" ng-if="loginForm.password.$touched && loginForm.password.$error.required">Password is required</span>
+
+          </div>
+
+        </p>
+
+          </div>
+
+      <p>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="environmentAddon">
+              <span class="glyphicon glyphicon-globe"></span>
+            </span>
+
+             <ui-select class="input-group-lg form-controls" ng-model="endPoint.selected" theme="bootstrap" ng-disabled="disabled">
+              <ui-select-match class="input-group-lg"   placeholder="Environment">{{$select.selected.name}}</ui-select-match>
+              <ui-select-choices repeat="env in environments | filter: $select.search">
+                <span ng-bind-html="env.name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+
+            <span class="input-group input-group-addon" ng-if="isCustomDomain">
+
+              <span style="font-size:14px;font-style:italic;">https://<span>
+              <input type="text" name="customDomain" id="customDomain" class="input-control" placeholder="mydomain" aria-describedby="@addon" ng-model="endPoint.myDomain" ng-required="true"></input> <span style="font-size:14px;font-style:italic;">my.salesforce.com</span>
+            </span>
+
+
+
+          </div>
+
+        </p>
+
+
+
+
+        <p>
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon" id="versionAddon">
+              <span class="glyphicon glyphicon-list"></span>
+
+              </span>
+
+               <ui-select class="input-group-lg form-controls" ng-model="endPoint.selectedVersion" theme="bootstrap" ng-disabled="disabled">
+                <ui-select-match class="input-group-lg"   placeholder="Version">{{$select.selected.version}}</ui-select-match>
+                <ui-select-choices position="down" repeat="ver in verList | orderBy:'-version'| filter: $select.search">
+                  <span ng-bind-html="ver.verlabel | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
+
+
+
+            </div>
+
+          </p>
+
+
+
+          <p>
+            <div class="input-group">
+
+
+
+
+               <span class="input-group-addon" style="border:none;font-family:Helvetica Neue;font-size:16px;font-weight:bold">&nbsp;Org Scan&nbsp;&nbsp;&nbsp;
+              <input type="checkbox" checked="quickScan.selectedValue" data-off-color="warning" data-off-text="Selective" data-on-text="Random" data-on-color="success" name="scanAccuracy" id="scanAccuracy" ng-model="quickScan.selectedValue" bootstrap-switch></input> </span>
+
+          </div>
+
+          <span class="input-group-addon help-block alert alert-warning"  ng-if="quickScan.selectedValue" style="font-size:14px;font-style:italic;border:none;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;Application will select candidates for review in random order.</span>
+
+            <span class="input-group-addon help-block alert alert-warning"  ng-if="!quickScan.selectedValue" style="font-size:14px;font-style:italic;border:none;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;"Application will load slow due to heuristic-based candidate selection. Please be patient!"</span>
+
+          </p>
+
+
+
+      <p>
+      <div class="input-group input-group-addon" style="border:none;" show-errors>
+        <input type="checkbox" class="form-control" style="width:auto;height:auto;float:none;" name="termsAgg" id="termsAgg" ng-model="termsAgreed" required=""></input>
+        <a href="#" ng-click="$event.preventDefault();showTermsDialog();" id="termsHref" name="termsHref" data-toggle="modal" data-target="#termsOfService"> I agree to the terms of service</a>
+
+         <div class="help-block alert alert-warning with-errors" role="alert" ng-if="submitted && loginForm.termsAgg.$error.required">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Warning:</span>
+          <span style="font-style: oblique;"> Please agree to the terms of service in order to use the application </span>
+        </div>
+
+
+      </div>
+  </p>
+      <!-- /input-group -->
+
+
+      <p>
+        <button type="submit" class="btn btn-lg btn-primary" ng-click="initiateLogin();submitted=true">Login
+          <span class="glyphicon glyphicon-log-in"></span>
+        </button>
+      </p>
+    </div>
+    <!-- terms of service  -->
+    <div ioratermsofservice></div>
+
+  </div>
+  </form>
+
+
+
+
+
+<link rel="stylesheet" href="styles/login.css">
+
+<script>
+
+$("#scanAccuracy").bootstrapSwitch();
+
+  $('#authMethod label').click(function() {
+    var selectedAuth = $(this).text().trim();
+
+    if (selectedAuth == 'Standard') {
+      $('#standardAuth').show();
+    } else {
+      $('#standardAuth').hide();
+    }
+  });
+
+  var CONFIG = {
+    clientId: 'YOUR_CLIENT_ID_HERE',
+    callbackPath: 'YOUR_CALLBACK_URL_HERE',
+    popup: false,
+    cacheTokenInSessionStorage: true,
+    scope: 'api id web'
+  };
+
+
+
+
+
+</script>

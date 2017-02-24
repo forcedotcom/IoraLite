@@ -1,0 +1,48 @@
+{
+  "name": "IoraLiteNodeJS",
+  "version": "1.0.0",
+  "description": "IoraLite Node JS Server",
+  "main": "./server/index.js",
+  "scripts": {
+    "test": "echo \"no test specified yet \"",
+    "start": "node ./server/index.js",
+    "lint": "node_modules/.bin/goodparts lib"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.1",
+    "bluebird": "^3.4.1",
+    "body-parser": "^1.13.3",
+    "bower": "",
+    "express": "^4.13.3",
+    "global": "^4.3.0",
+    "grunt": "^1.0.1",
+    "gzippo": "^0.2.0",
+    "helmet": "^3.4.0",
+    "jsforce": "^1.7.0",
+    "lodash": "^4.14.2",
+    "method-override": "^2.3.5",
+    "moment": "^2.14.1",
+    "nforce": "^1.6.0",
+    "request": "^2.61.0"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "client/bower_components"
+  ],
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-config-google": "^0.7.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-promise": "^3.4.1",
+    "eslint-plugin-standard": "^2.0.1",
+    "goodparts": "^1.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/forcedotcom/IoraLite.git"
+  }
+}

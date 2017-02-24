@@ -1,0 +1,194 @@
+<!--
+ * Copyright (c) 2017, Salesforce.com, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of Salesforce.com nor the names of its contributors may
+ * be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ -->
+
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>Iora Lite </title>
+  <base href="/">
+   <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-block-ui/dist/angular-block-ui.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/metisMenu/dist/metisMenu.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/morris.js/morris.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-chart.js/dist/angular-chart.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/nvd3/build/nv.d3.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/ui-select/dist/select.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+
+
+    <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="bower_components/datatables/responsive.dataTables.min.css"/>   -->
+    <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/octicons/lib/octicons.css">
+
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/sb-admin-2.css">
+    <link rel="stylesheet" type="text/css" href="styles/iora_styles.css"/>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!-- endbuild -->
+</head>
+
+    <body ng-app="ioraliteAngularApp">
+
+      <div class="header">
+      </div>
+
+      <div ng-view=""></div>
+
+      <div class="footer">
+        <div class="container">
+          <table cellpadding="0" cellspacing="0" style="width: 100%;">
+            <tr>
+            <td style="width:25%;text-align:center;"><a href="https://github.com/forcedotcom/IoraLite"><span style="font-size:16px;"> <i class="fa fa-github fa-2x" aria-hidden="true"></i> </span></a></td>
+
+            <td style="width:25%;text-align:center;"><span style="float:none;font-size:16px;"> <a href="https://twitter.com/iorasalesforce"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></span></a></td>
+
+            <td style="width:25%;text-align:center;font-size:200%;"><a href="https://github.com/forcedotcom/IoraLite/subscription"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+
+
+           <td style="width:25%;text-align:center;font-size:200%;"><a href="https://github.com/forcedotcom/IoraLite/issues"><span class="glyphicon glyphicon-question-sign"></span></a> </td>
+         </tr>
+         <table>
+        </div>
+      </div>
+
+      <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+       <script>
+         !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+         (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+         r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+         }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-XXXXX-X');
+         ga('send', 'pageview');
+      </script>
+
+      <!-- build:js(.) scripts/vendor.js -->
+      <!-- bower:js -->
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+      <script src="bower_components/angular-route/angular-route.js"></script>
+      <script src="bower_components/lodash/lodash.js"></script>
+      <script src="bower_components/restangular/dist/restangular.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-block-ui/dist/angular-block-ui.js"></script>
+      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+      <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+      <script src="bower_components/metisMenu/dist/metisMenu.js"></script>
+      <script src="bower_components/raphael/raphael.js"></script>
+      <script src="bower_components/mocha/mocha.js"></script>
+      <script src="bower_components/morris.js/morris.js"></script>
+     <!-- <script src="bower_components/angular-morris-chart/src/angular-morris-chart.min.js"></script>-->
+      <!-- <script src="bower_components/Chart.js/Chart.js"></script>
+      <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script> -->
+      <script src="bower_components/d3/d3.js"></script>
+      <script src="bower_components/nvd3/build/nv.d3.js"></script>
+      <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+      <script src="bower_components/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
+      <script src="bower_components/async/lib/async.js"></script>
+      <script src="bower_components/ngstorage/ngStorage.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-bootstrap-show-errors/src/showErrors.js"></script>
+      <script src="bower_components/ui-select/dist/select.js"></script>
+      <script src="bower_components/ngSanitize/index.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
+      <script src="bower_components/underscore/underscore.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <!-- endbower -->
+      <!-- endbuild -->
+
+          <!-- build:js({.tmp,app}) scripts/scripts.js -->
+          <script type="text/javascript" src="scripts/app.js"></script>
+          <script type="text/javascript" src="js/sb-admin-2.js"></script>
+          <!--lz string for storage compression-->
+          <script language="javascript" src="scripts/directives/lzstring/lzstring.js"></script>
+
+
+    <!--<script type="text/javascript"  src="bower_components/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="bower_components/datatables/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/datatables/dataTables.responsive.min.js"> -->
+    <script type="text/javascript"  src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/datatables.net-responsive/js/dataTables.responsive.min.js">
+
+    </script>
+
+          <!--<script type="text/javascript" src="scripts/controllers/iora_main.js"></script> -->
+          <script type="text/javascript" src="scripts/controllers/login.js"></script>
+          <script type="text/javascript" src="scripts/controllers/oauthRedirect.js"></script>
+          <script type="text/javascript" src="scripts/controllers/iora_org.js"></script>
+          <script type="text/javascript" src="scripts/controllers/iora_targets.js"></script>
+          <script type="text/javascript" src="scripts/controllers/iora_target.js"></script>
+
+          <script src="scripts/controllers/iora_errors.js"></script>
+          <script src="scripts/controllers/iora_warning.js"></script>
+          <script src="scripts/controllers/iora_page_not_found.js"></script>
+          <script src="scripts/controllers/iora_no_org_context.js"></script>
+          <script src="scripts/controllers/test.js"></script>
+          <script src="scripts/controllers/iora_unpermitted_org.js"></script>
+          <script src="scripts/controllers/iora_org_prepare.js"></script>
+          <!-- endbuild -->
+
+          <script type="text/javascript" src="scripts/services/ioraServices.js"></script>
+          <script type="text/javascript" src="scripts/services/ioraSessionServices.js"></script>
+          <script type="text/javascript" src="scripts/services/ioraSearchServices.js"></script>
+
+          <script type="text/javascript" src="scripts/services/ioraOverviewChartServices.js"></script>
+          <script type="text/javascript" src="scripts/services/ioraDetailChartServices.js"></script>
+          <script type="text/javascript" src="scripts/services/ioraDrillDownChartServices.js"></script>
+          <script type="text/javascript" src="scripts/services/ioraTooltipServices.js"></script>
+
+          <script type="text/javascript" src="scripts/services/ioraOrgQuickPrepareServices.js"></script>
+
+
+          <script type="text/javascript" src="scripts/services/underscore.js"></script>
+
+
+
+    </body>
+
+</html>

@@ -1,0 +1,360 @@
+<!--
+ * Copyright (c) 2017, Salesforce.com, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of Salesforce.com nor the names of its contributors may
+ * be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ -->
+
+<div id="iora_page-wrapper_template">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Org {{targetTypes}}</h1>
+      <p class="lead">Assess and improve {{lowerCaseTargets}} in your Salesforce org</p>
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <i class="glyphicon glyphicon-filter"></i> {{targetTypes}} Filters
+        </div>
+        <!--Page Level Filters are : Data set size, Design and Scalability status values -->
+
+        <div class="panel-body">
+          <p> Use these filters to focus the charts below on reports with certain attributes. </p>
+          <table class="table">
+            <tr>
+
+              <td style="vertical-align:baseline;border:none;">
+                <label> Data Size </label>
+                <ui-select ng-model="chartFilter.dataSize" theme="bootstrap" ng-disabled="disabled" on-select="updateChart();">
+                  <ui-select-match placeholder="Dataset">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="size in dataSizeOptions | filter: $select.search">
+                    <span ng-bind-html="size.name | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+              </td>
+
+              <td style="vertical-align:baseline;border:none;">
+                <label> Design </label>
+                <ui-select ng-model="chartFilter.design" theme="bootstrap" ng-disabled="disabled" on-select="updateChart();">
+                  <ui-select-match placeholder="Dataset">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="desiredDesign in designStatuses | filter: $select.search">
+                    <span ng-bind-html="desiredDesign.name | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+              </td>
+
+              <td style="vertical-align:baseline;border:none;">
+                <label> Scalability </label>
+                <ui-select ng-model="chartFilter.scalability" theme="bootstrap" ng-disabled="disabled" on-select="updateChart();">
+                  <ui-select-match placeholder="Dataset">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="desiredScale in scalabilityStatuses | filter: $select.search">
+                    <span ng-bind-html="desiredScale.name | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+              </td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /.row -->
+  <div class="row equal">
+    <div class="col-md-12 equal">
+      <!-- /.panel -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="glyphicon glyphicon-scale "></i> Top {{lowerCaseTargets}}
+        </div>
+        <div class="panel-body">
+
+
+
+          <!--  <div id="targets-chart" ></div> -->
+          <nvd3 options="options" data="topReportConcerns"></nvd3>
+          <div style="float:left" class="label label-warning"> <i class="glyphicon glyphicon-arrow-left"></i>&nbsp;&nbsp;Worse </div>
+          <div style="float:right" class="label label-success" > Better&nbsp;&nbsp;<i class="glyphicon glyphicon-arrow-right"></i></div>
+          <br/>
+          <br/>
+
+          <p>The above chart shows individual top <strong>{{chartFilter.dataSize.text}}</strong>  {{lowerCaseTargets}} to tune. Use this to focus tuning on high impact {{lowerCaseTargets}}. Click to drill into each report for more detailed {{lowerCaseTarget}} assessment information. </p>
+
+        </div>
+        <!-- /.panel-body -->
+      </div>
+    </div>
+
+    <div class="col-md-12 equal">
+      <!-- /.panel -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="glyphicon glyphicon-scale "></i> {{targetTypes}} Assessment - Dimensions
+        </div>
+        <div class="panel-body">
+
+
+
+       <table class="table" >
+            <tr>
+              <td style="vertical-align:baseline;border:none;" ng-if="isDrillDown">
+
+                <button type="button" class="btn btn-info" ng-click="upOneLevel();"><i class="glyphicon glyphicon-backward"></i> Back </button>
+              </td>
+              <td style="vertical-align:baseline;border:none;" ng-if="hasDimensions">
+                <label> Dimension </label>
+              </td>
+
+              <td style="vertical-align:baseline;border:none;" ng-if="hasDimensions">
+                <ui-select ng-model="chartFilter.dimension" theme="bootstrap" ng-disabled="disabled" on-select="updateDimesionChart();">
+                  <ui-select-match placeholder="Dimension">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="desiredDimension in chartDimensions | filter: $select.search">
+                    <span ng-bind-html="desiredDimension.name | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+              </td>
+              <td style="vertical-align:baseline;border:none;" ng-if="!currentDrillDownLevel">
+                <label> Order </label>
+              </td>
+              <td style="vertical-align:baseline;border:none;" ng-if="!currentDrillDownLevel">
+                <ui-select ng-model="chartFilter.order" theme="bootstrap" ng-disabled="disabled" on-select="updateDimesionChart();">
+                  <ui-select-match placeholder="Order">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="desiredOrder in orderOptions | filter: $select.search">
+                    <span ng-bind-html="desiredOrder.name | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+              </td>
+              </tr>
+              <tr>
+              <td style="vertical-align:baseline;border:none;">
+                <label>
+                  <br/> Data Size
+                  <br/>
+                </label>
+              </td>
+              <td style="vertical-align:baseline;border:none;">
+
+                <input type="checkbox" checked="chartFilter.groupSmallerBars" name="groupSmallerBars" id="groupSmallerBars" ng-model="chartFilter.groupSmallerBars" data-on-text="Top Ten" data-off-text="All" bootstrap-switch ng-change="updateDimesionChart();"></input>
+              </td>
+              <td style="vertical-align:baseline;border:none;" ng-if="hasOtherBlock && chartFilter.groupSmallerBars">
+                <label>
+                  <br/> Hidden {{chartFilter.order.lowercase}}
+                  <br/>
+                </label>
+              </td>
+
+              <td style="vertical-align:baseline;border:none;" ng-if="hasOtherBlock && chartFilter.groupSmallerBars">
+                <span style="font-weight:lighter;font-size:18px;">{{noOfOtherBlocks | number:2}} <span ng-if="chartFilter.order.name == 'Cost'">%</span></span>
+              </td>
+            </tr>
+          </table>
+
+
+
+          <nvd3 options="dimensionOptions" data="reportByDimensions"></nvd3>
+
+           <div style="float:left" class="label label-warning" ng-if="currentDrillDownLevel==0 || currentDrillDownLevel==2"> <i class="glyphicon glyphicon-arrow-left"></i>&nbsp;&nbsp;Worse </div>
+           <div style="float:right" class="label label-success" ng-if="currentDrillDownLevel==0 || currentDrillDownLevel==2"> Better&nbsp;&nbsp;<i class="glyphicon glyphicon-arrow-right" ></i></div>
+         <br/>
+         <br/>
+
+           <p>
+              The above chart shows the aggregate cost/count of {{lowerCaseTargets}} grouped by selected dimensions. Use this to focus tuning on high impact users, report types, and folders. Click to drill into each group for more detailed assessment information.
+           </p>
+
+
+        </div>
+        <!-- /.panel-body -->
+      </div>
+    </div>
+
+
+    <!--<div class="col-md-6 equal">
+            <div class="well well-sm">
+                <h4>Efficient {{targetType}}</h4>
+                <p>An <em>efficient {{targetType}}</em> is one that, when targeting an object with 100,000 or more records, includes at least one selective filter condition that references an indexed field using an optimizable operator. Common selective filter conditions target:</p>
+                <ul>
+                    <li>Narrow date range: <code>MyDateField > date AND MyDateField &lt;= date</code></li>
+                    <li>Selective picklist value: <code>MyPicklistField = Item</code></li>
+                </ul>
+                <h4>Inefficient {{targetType}}</h4>
+                <p>An <em>inefficient {{targetType}}</em> is one that does not meet the above criteria. To preserve the scalability of your org as more users and data come online, click on each inefficient {{targetType}} below for more information about the {{targetType}}, including specific tuning information.</p>
+            </div>
+        </div> -->
+
+  </div>
+
+  <!--<div class="row" ng-if="isDrillDown">
+    <div class="col-lg-12">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="glyphicon glyphicon-scale "></i> {{targetTypes}} Assessment - Dimensions
+        </div>
+        <div class="panel-body">
+          <table class="table">
+            <tr>
+              <td style="vertical-align:baseline;border:none;" ng-if="isDrillDown">
+
+                <button type="button" class="btn btn-info" ng-click="upOneLevel();"><i class="glyphicon glyphicon-backward"></i> Back </button>
+              </td>
+              <td style="vertical-align:baseline;border:none;" ng-if="hasDimensions">
+                <label> Chart Dimension </label>
+              </td>
+
+              <td style="vertical-align:baseline;border:none;" ng-if="hasDimensions">
+                <ui-select ng-model="chartFilter.dimension" theme="bootstrap" ng-disabled="disabled" on-select="updateDimesionChart();">
+                  <ui-select-match placeholder="Dimension">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="desiredDimension in chartDimensions | filter: $select.search">
+                    <span ng-bind-html="desiredDimension.name | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+              </td>
+
+              <td style="vertical-align:baseline;border:none;">
+                <input type="checkbox" checked="chartFilter.groupSmallerBars" name="groupSmallerBars" id="groupSmallerBars" ng-model="chartFilter.groupSmallerBars" data-on-text="Top 10" data-off-text="All" bootstrap-switch ng-change="updateDimesionChart();"></input>
+              </td>
+              <td style="vertical-align:baseline;border:none;" ng-if="hasOtherBlock && chartFilter.groupSmallerBars">
+                <label>
+                  <br/> Hidden {{lowerCaseTarget}} count:
+                  <br/>
+                </label>
+              </td>
+
+              <td style="vertical-align:baseline;border:none;" ng-if="hasOtherBlock && chartFilter.groupSmallerBars">
+                <span style="font-weight:lighter;font-size:22px;">{{noOfOtherBlocks}}</span>
+              </td>
+            </tr>
+          </table>
+
+
+
+          <nvd3 options="mutichartOptions" data="designDimensions"></nvd3>
+          <nvd3 options="mutichartOptions" data="scalabilityDimensions"></nvd3>
+          <nvd3 options="mutichartOptions" data="observationDimensions"></nvd3>
+
+
+
+
+          <p>Above chart represents <i>upto</i> a maximum of
+            <strong>{{chartFilter.dataSize.text}}</strong> potential {{lowerCaseTargets}} identified by Iora Lite application that can be improved. Hover over the bar for details and click them to navigate.</p>
+        </div>
+
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="padding: 25px 15px;">
+          <strong> Org {{targetTypes}} </strong>
+          <span ng-if="isReportPage">
+          <span  style="float:right;font-style: italic;text-transform: none;"> <i class="fa fa-share-alt alert-warning"></i> Driven by sharing-based filter, so report performance can vary by user</span>
+          <br/>
+          <span   style="float:right;font-style: italic;text-transform: none;"><i class="fa fa-filter alert-warning"></i> Driven by scope-based filter, so report performance can vary by user</span>
+
+        </span>
+
+             <span ng-if="isDashboardPage" style="float:right;font-style: italic;text-transform: none;">
+
+              <i class="fa fa-exclamation-triangle fa-fw"></i> Indicates errors while fetching dashboard components.</span>
+            </div>
+
+        <!-- /.panel-heading -->
+
+        <!--panel body for reports -->
+        <div ng-show="isReportPage" class="panel-body">
+          <div class="dataTable_wrapper">
+            <table id="targets-table-report" style="font-size:12px;" class="table responsive table-striped table-bordered table-hover dataTable no-footer no-wrap responsive-table" role="grid" aria-describedby="dataTables-example_info">
+              <thead>
+                <tr>
+                  <th>{{targetType}} Id</th>
+                  <th>Name</th>
+                  <th>Rank</th>
+                  <th>Last Used</th>
+                  <th>Design</th>
+                  <th>Scalability</th>
+                  <th>Performance Driver</th>
+                  <th>Report Type</th>
+                  <th>Last Modified By</th>
+                  <th>Last Modified Date</th>
+                  <th>Health Score</th>
+                  <th>Special Filters</th>
+                  <th>Tags</th>
+                </tr>
+              </thead>
+
+            </table>
+          </div>
+        </div>
+        <!-- /.panel-body -->
+
+
+
+        <!--panel body for dashboards -->
+        <div ng-show="isDashboardPage" class="panel-body">
+          <div class="dataTable_wrapper">
+            <table id="targets-table-dashboard" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dataTables-example_info">
+              <thead>
+                <tr>
+                  <th>{{targetType}} Id</th>
+                  <th>Name</th>
+                  <th>Rank</th>
+                  <th>Last Used</th>
+                  <th>Design</th>
+                  <th>Scalability</th>
+                  <th>Running User</th>
+                  <th>Contributing Component</th>
+                  <th>Last Modified By</th>
+                  <th>Last Modified Date</th>
+                  <th>Health Score</th>
+                  <th>Special Filters</th>
+                  <th>Tags</th>
+                </tr>
+              </thead>
+
+            </table>
+          </div>
+          <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+
+      </div>
+      <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+
+
+</div>
