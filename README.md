@@ -1,6 +1,13 @@
-# Iora Lite   <a href="https://github.com/forcedotcom/IoraLite/wiki"><img src="../../wiki/docs/images/main/iora-logo-final.png" align="right" ></a> <img src="../../wiki/docs/images/main/pre-release-logo.png"></a>  <img src="../../wiki/docs/images/main/beta-release-logo.png"></a>
+# Iora Lite [![GitHub (pre-)release](https://img.shields.io/github/release/forcedotcom/ioralite/all.svg?style=plastic)]()  
+
+<!--Old image tags to represent the releases, in case we need them. Switched to dynamic release tags -->
+
+<!--<a href="https://github.com/forcedotcom/IoraLite/wiki"><img src="../../wiki/docs/images/main/iora-logo-final.png" align="right" ></a> <img src="../../wiki/docs/images/main/pre-release-logo.png"></a>  <img src="../../wiki/docs/images/main/beta-release-logo.png"></a> -->
+
 <!--Comment the download count and release tags until the project enters  mainstream. Use the above pre-release-logos till then -->
+
 <!--[![Github All Releases](https://img.shields.io/github/downloads/forcedotcom/IoraLite/total.svg)]() [![GitHub release](https://img.shields.io/github/release/salesforce/IoraLite.svg)]()-->
+
 [![NSP Status](https://nodesecurity.io/orgs/ioralite/projects/fed6d1cb-5276-4d65-b8c5-dd98103438be/badge)](https://nodesecurity.io/orgs/ioralite/projects/fed6d1cb-5276-4d65-b8c5-dd98103438be) [![Build Status](https://travis-ci.org/forcedotcom/IoraLite.svg?branch=master)](https://travis-ci.org/forcedotcom/IoraLite) [![bitHound Dependencies](https://www.bithound.io/github/forcedotcom/IoraLite/badges/dependencies.svg)](https://www.bithound.io/github/forcedotcom/IoraLite/master/dependencies/npm) [![bitHound Dev Dependencies](https://www.bithound.io/github/forcedotcom/IoraLite/badges/devDependencies.svg)](https://www.bithound.io/github/forcedotcom/IoraLite/master/dependencies/npm)  
  
 
