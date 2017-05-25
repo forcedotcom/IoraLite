@@ -72,7 +72,7 @@ angular.module('ioraOrgPrepServices', [])
       return addlnReqParamsMap;
     }
 
-    var _addRankToStructure = function(interestedObj, perfPropertyName) {
+    var addRankToStructure = function(interestedObj, perfPropertyName) {
       if (interestedObj) {
         for (var iterIdx = 0; iterIdx < interestedObj.length; iterIdx++) {
           var interestedInstance = interestedObj[iterIdx];
@@ -106,12 +106,12 @@ angular.module('ioraOrgPrepServices', [])
       var sortedReportResults = $filter('orderBy')(reportResults, "reportPerformance.healthScoreMult1", true);
       //add rank value to the Data structure.
 
-      _addRankToStructure(sortedReportResults, 'reportPerformance');
+      addRankToStructure(sortedReportResults, 'reportPerformance');
 
       //sort dashboard results
       var sortedDashResults = $filter('orderBy')(dashResults, "reportPerformance.healthScore", true);
       //add rank value to the Data structure.
-      _addRankToStructure(sortedDashResults, 'dashboardStats');
+      addRankToStructure(sortedDashResults, 'dashboardStats');
 
       finalDashSummary.dashSummaryStats = dashSummaryStats;
       finalDashSummary.dashDetails = sortedDashResults;
@@ -360,6 +360,7 @@ angular.module('ioraOrgPrepServices', [])
 
     return {
       ioraOrgPrepare: ioraOrgPrepare,
+      addRankToStructure:addRankToStructure,
       populateAddlnReqParamsMap:populateAddlnReqParamsMap,
       parsedashResponse:parsedashResponse
     };

@@ -33,6 +33,20 @@
 'use strict';
 
 angular.module('ioraServices', [])
+  .factory('ioraAuthFactory', function($location,ioraServicesFactory){
+
+    var ensureUserAppContext=function(pageContext){
+        //make sure the page context is not going to authentication or caching process
+        if(pageContext.controller !== 'LoginCtrl' && pageContext.controller !== 'OauthredirectCtrl' && pageContext.controller !== 'IoraOrgPrepareCtrl'){
+             ioraServicesFactory.ensureUserAppContext(null,$location);
+        }
+    }
+
+    return {
+      ensureUserAppContext:ensureUserAppContext
+    };
+
+  })
   .factory('ioraInitFactory', function($localStorage, $location, ioraServicesFactory) {
 
     var _initializeFilters = function($scope) {
@@ -106,12 +120,7 @@ angular.module('ioraServices', [])
       }
     }
 
-    var _checkDataCache = function($scope) {
-      if (!$scope.ioraDashboardRest || !$scope.ioraReportRest || !$scope.userInfo) {
-        $location.url('/Iora_No_Org_Context');
-        $location.replace();
-      }
-    }
+    
 
     var _setDefaults = function($scope) {
       $scope.placeHolder = "Search by ID..";
@@ -141,18 +150,35 @@ angular.module('ioraServices', [])
       _initializeFilters($scope);
       _loadSearchData($scope,$location);
       _loadFromLocalStorage($scope);
-      _checkDataCache($scope);
+      ioraServicesFactory.ensureUserAppContext($scope,$location);
       _loadErrorsWarnings($scope);
       ioraServicesFactory.loadReportScopeData($scope);
       _calculateNetWarningErrors($scope);
     };
 
     return {
-      pageLoad: pageLoad
+      pageLoad: pageLoad 
     };
 
   })
-  .factory('ioraServicesFactory', function() {
+  .factory('ioraServicesFactory', function($localStorage) {
+
+    var _getAppContext=function(contextObject){
+      if(contextObject === null || contextObject === undefined){
+         contextObject=$localStorage
+         return (contextObject.userInfoFactory)
+      }
+      else{
+        return (contextObject.ioraDashboardRest && contextObject.ioraReportRest && contextObject.userInfo) 
+      }
+    }
+
+    var ensureUserAppContext = function(contextObject,$location) {
+      if (!_getAppContext(contextObject)) {
+        $location.url('/Iora_No_Org_Context');
+        $location.replace();
+      }
+    }
 
     var fixhashinURL=function(url,$location){
       if (url !== null && url.indexOf("#access_token") > -1) {
@@ -304,6 +330,7 @@ angular.module('ioraServices', [])
       updateTotalWarningCount: updateTotalWarningCount,
       loadReportScopeData: loadReportScopeData,
       defineGoButtonAction : defineGoButtonAction,
+      ensureUserAppContext : ensureUserAppContext,
       fixhashinURL : fixhashinURL,
       sortByHealthScore : sortByHealthScore
 

@@ -25,7 +25,8 @@
     "method-override": "^2.3.5",
     "moment": "^2.14.1",
     "nforce": "^1.6.0",
-    "request": "^2.61.0"
+    "request": "^2.61.0",
+    "restangular": "^1.5.1"
   },
   "cacheDirectories": [
     "node_modules",

@@ -32,7 +32,7 @@
  'use strict';
 
  angular.module('ioraSearchServices', [])
- .factory('ioraSearchFactory', function(httpReqFactory, blockUI, reportAggFactory, dashboardAggFactory, ioraOrgPrepFactory, $http, $location, $localStorage) {
+ .factory('ioraSearchFactory', function($filter,httpReqFactory, blockUI, reportAggFactory, dashboardAggFactory, ioraOrgPrepFactory, $http, $location, $localStorage) {
 
    var _captureReportErrors=function(indReportInfo,reportIds,reportErrors,$scope,blockUI){
      reportErrors.push(indReportInfo.generalInfo);
@@ -60,7 +60,7 @@
        backdrop: 'true',
        keyboard: false
      });
-     $scope.invalidSessionMsg = 'Your session has expired. Please re-login and try again.';
+     $scope.invalidSessionMsg = 'Either you are not authenticated or your session has expired. Please re-login and try again.';
      $scope.invalidSession = true;
      $scope.divStyle = {
        "display": "block",
@@ -115,6 +115,11 @@
          reportsWithZeroRecs.push(indReportInfo);
        }
        reportResults.push(indReportInfo);
+       var sortedReportResults = $filter('orderBy')(reportResults, "reportPerformance.healthScoreMult1", true);
+      //add rank value to the Data structure.
+
+      ioraOrgPrepFactory.addRankToStructure(sortedReportResults, 'reportPerformance');
+
      }
    });
      _finalizeAndSaveReport($scope,finalReportSummary,reportResults,reportErrors,reportSummaryStats,reportPerfErrors,reportsWithZeroRecs,reportIds);

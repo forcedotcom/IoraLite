@@ -46,11 +46,14 @@ angular
   .module('ioraliteAngularApp', [
     'ngRoute', 'ngResource', 'ngStorage','restangular', 'blockUI', 'oc.lazyLoad','nvd3','angular-svg-round-progress','ioraSessionServices','ioraServices','ioraSearchServices','ngCookies','ui.bootstrap.showErrors','ui.select','ngSanitize','nvd3ChartDirectives','ioraChartServices','underscore','ioraOrgPrepServices'
   ])
-  .run(function($location){
+  .run(['$rootScope', '$location', 'ioraAuthFactory',function($rootScope,$location,ioraAuthFactory){
      if ($location.protocol() !== 'https' && $location.host() !== 'localhost') {
        window.location.href=$location.absUrl().replace('http', 'https');
      }
-  })
+     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+         ioraAuthFactory.ensureUserAppContext(next);
+     })
+  }])
   .config(function($routeProvider,RestangularProvider, blockUIConfig, $ocLazyLoadProvider, $locationProvider) {
       $locationProvider
       .html5Mode(true).hashPrefix('');
@@ -61,13 +64,6 @@ angular
       events: true
     });
 
-
-    //construct application base URL
-    /*var protocol=$location.protocol();
-    var host=$location.host();
-    var port=$location.port();
-    var baseUrlStr=protocol + "://" + host + ":"  + port;
-    RestangularProvider.setBaseUrl(baseUrlStr);*/
 
     // Change the default overlay message
     blockUIConfig.message = 'Loading.....';
