@@ -8,10 +8,9 @@
 
 <!--[![Github All Releases](https://img.shields.io/github/downloads/forcedotcom/IoraLite/total.svg)]() [![GitHub release](https://img.shields.io/github/release/salesforce/IoraLite.svg)]()-->
 
-[![NSP Status](https://nodesecurity.io/orgs/ioralite/projects/fed6d1cb-5276-4d65-b8c5-dd98103438be/badge)](https://nodesecurity.io/orgs/ioralite/projects/fed6d1cb-5276-4d65-b8c5-dd98103438be) [![Build Status](https://travis-ci.org/forcedotcom/IoraLite.svg?branch=master)](https://travis-ci.org/forcedotcom/IoraLite) [![bitHound Dependencies](https://www.bithound.io/github/forcedotcom/IoraLite/badges/dependencies.svg)](https://www.bithound.io/github/forcedotcom/IoraLite/master/dependencies/npm) [![bitHound Dev Dependencies](https://www.bithound.io/github/forcedotcom/IoraLite/badges/devDependencies.svg)](https://www.bithound.io/github/forcedotcom/IoraLite/master/dependencies/npm)  
- 
+[![Build Status](https://travis-ci.org/forcedotcom/IoraLite.svg?branch=master)](https://travis-ci.org/forcedotcom/IoraLite)  
 
-[![Code Climate](https://lima.codeclimate.com/github/forcedotcom/IoraLite/badges/gpa.svg)](https://lima.codeclimate.com/github/forcedotcom/IoraLite) [![bitHound Code](https://www.bithound.io/github/forcedotcom/IoraLite/badges/code.svg)](https://www.bithound.io/github/forcedotcom/IoraLite)  [![bitHound Overall Score](https://www.bithound.io/github/forcedotcom/IoraLite/badges/score.svg)](https://www.bithound.io/github/forcedotcom/IoraLite) [![JavaScript Style Guide: Good Parts](https://img.shields.io/badge/code%20style-goodparts-brightgreen.svg?style=flat)](https://github.com/forcedotcom/IoraLite "JavaScript The Good Parts")                                     
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1bcff91a4c2148ca8a4914605a985e60)](https://www.codacy.com/manual/sfdeveloperhub/IoraLite?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=forcedotcom/IoraLite&amp;utm_campaign=Badge_Grade) [![Code Climate](https://lima.codeclimate.com/github/forcedotcom/IoraLite/badges/gpa.svg)](https://lima.codeclimate.com/github/forcedotcom/IoraLite) [![JavaScript Style Guide: Good Parts](https://img.shields.io/badge/code%20style-goodparts-brightgreen.svg?style=flat)](https://github.com/forcedotcom/IoraLite "JavaScript The Good Parts")                                     
 
 **Iora Lite** is a free tool that you can use to quickly assess and improve the health and response times of the following components in your Salesforce org:
 
