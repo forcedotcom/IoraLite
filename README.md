@@ -14,14 +14,14 @@
 
 **Iora Lite** is a free tool that you can use to quickly assess and improve the health and response times of the following components in your Salesforce org:
 
-* dashboards
-* reports
+  * dashboards
+  * reports
 
 Please refer to [**Iora Lite** Wiki](https://github.com/forcedotcom/IoraLite/wiki) for futher details on how to install, use, and understand **Iora Lite**
 
 ## Data Security
 We take the security of your data **very seriously** and designed the application that *strictly* follows the below principles:
 
-* Only **metadata**, and NO DATA, is used for the analysis to provide you with operational business intelligence insights.
-* *Metadata* used for analysis is part of your browser session.
-* ALL of the metadata is **completely wiped** as soon as you logout or close your browser.
+  * Only **metadata**, and NO DATA, is used for the analysis to provide you with operational business intelligence insights.
+  * *Metadata* used for analysis is part of your browser session.
+  * ALL of the metadata is **completely wiped** as soon as you logout or close your browser.
