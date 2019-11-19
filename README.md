@@ -10,7 +10,7 @@
 
 [![Build Status](https://travis-ci.org/forcedotcom/IoraLite.svg?branch=master)](https://travis-ci.org/forcedotcom/IoraLite)  
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1bcff91a4c2148ca8a4914605a985e60)](https://www.codacy.com/manual/sfdeveloperhub/IoraLite?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=forcedotcom/IoraLite&amp;utm_campaign=Badge_Grade) [![Code Climate](https://lima.codeclimate.com/github/forcedotcom/IoraLite/badges/gpa.svg)](https://lima.codeclimate.com/github/forcedotcom/IoraLite) [![JavaScript Style Guide: Good Parts](https://img.shields.io/badge/code%20style-goodparts-brightgreen.svg?style=flat)](https://github.com/forcedotcom/IoraLite "JavaScript The Good Parts")                                     
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1bcff91a4c2148ca8a4914605a985e60)](https://www.codacy.com/manual/sfdeveloperhub/IoraLite?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=forcedotcom/IoraLite&amp;utm_campaign=Badge_Grade)<!-- [![Code Climate](https://lima.codeclimate.com/github/forcedotcom/IoraLite/badges/gpa.svg)](https://lima.codeclimate.com/github/forcedotcom/IoraLite-->) [![JavaScript Style Guide: Good Parts](https://img.shields.io/badge/code%20style-goodparts-brightgreen.svg?style=flat)](https://github.com/forcedotcom/IoraLite "JavaScript The Good Parts")                                     
 
 **Iora Lite** is a free tool that you can use to quickly assess and improve the health and response times of the following components in your Salesforce org:
 
