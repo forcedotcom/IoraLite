@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"no test specified yet \"",
     "start": "node ./server/index.js",
-    "lint": "node_modules/.bin/goodparts lib"
+    "lint": "node_modules/.bin/goodparts lib",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "",
   "license": "ISC",
@@ -26,7 +28,8 @@
     "moment": "^2.14.1",
     "nforce": "^1.6.0",
     "request": "^2.61.0",
-    "restangular": "^1.5.1"
+    "restangular": "^1.5.1",
+    "snyk": "^1.316.1"
   },
   "cacheDirectories": [
     "node_modules",
@@ -45,5 +48,6 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/forcedotcom/IoraLite.git"
-  }
+  },
+  "snyk": true
 }
